@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.attendance.domain.AttendanceDao">
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.attendance.domain.AttendanceDomain" id="AttendanceDomain">
+		<id column="logidinternal" property="LogIdInternal" />
+		<result column="personalnr" property="PersonalNr" />
+		<result column="username" property="username" />
+		<result column="createtime" property="CreateTime" />
+		<result column="datestr" property="DateStr" />
+		<result column="timestr" property="TimeStr" />
+        <result column="logtype" property="logtype" />
+		<result column="timestamps" property="timestamp" />
+        <result column="signtype" property="signtype" />
+    </resultMap>
+    
+    <sql id = "Colum">
+		logidinternal,
+		personalnr,
+		username,
+		createtime,
+		datestr,
+		timestr,
+		logtype,
+		timestamps
+    </sql>
+
+
+	<insert id="insert" >
+		INSERT ignore  koaka_log_info
+		(
+		<include refid="Colum" ></include>
+		)VALUES
+		(
+		#{LogIdInternal},
+		#{PersonalNr,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		sysdate(),
+		#{DateStr,jdbcType=VARCHAR},
+		#{TimeStr,jdbcType=VARCHAR},
+        #{logtype,jdbcType=VARCHAR},
+		#{timestamp,jdbcType=VARCHAR}
+		)
+
+	</insert>
+
+    <select id="getAttendanceEvents" resultMap="AttendanceDomain" >
+        select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+        select  m.* from koaka_log_info m right join (
+        select ua.* from (
+
+            select a.* from (
+                select fli.*
+                from koaka_log_info fli
+                <where>
+                    <if test='startTime != null and startTime != "".toString()  '>
+                        fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                    </if>
+                    <if test='endTime != null and endTime != "".toString()  '>
+                        AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                    </if>
+                </where>
+            order by fli.timestamps
+            ) a GROUP BY a.personalnr,a.datestr
+
+            UNION
+
+            select a.* from (
+            select fli.*
+            from koaka_log_info fli
+            <where>
+                <if test='startTime != null and startTime != "".toString()  '>
+                    fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                </if>
+                <if test='endTime != null and endTime != "".toString()  '>
+                    AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                </if>
+            </where>
+            order by fli.timestamps desc
+            ) a GROUP BY a.personalnr,a.datestr
+
+        ) ua) tm on m.logidinternal = tm.logidinternal
+
+        ORDER BY  m.datestr desc,m.username, m.timestr, m.timestamps
+        ) mm,(SELECT @rowNum:=0) b
+    </select>
+
+	<select id="getFaceCardEvents" resultMap="AttendanceDomain" >
+
+        select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+        select  m.* from (
+
+        select CONCAT(fli.logidinternal,'F') logidinternal,fli.personalnr,fli.username,
+        fli.datestr,fli.timestr,fli.timestamps
+        from face_log_info fli
+        <where>
+            <if test='startTime != null and startTime != "".toString()  '>
+              fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+            </if>
+            <if test='endTime != null and endTime != "".toString()  '>
+              AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+            </if>
+        </where>
+        UNION
+        select CONCAT(cli.logidinternal,'C') logidinternal,cli.personalnr,cli.username,
+        cli.datestr,cli.timestr,cli.timestamps
+        from card_log_info cli
+        <where>
+            <if test='startTime != null and startTime != "".toString()  '>
+              cli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+            </if>
+            <if test='endTime != null and endTime != "".toString()  '>
+              AND cli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+            </if>
+        </where>
+
+        ) m right join (
+        select ua.* from (
+
+        select a.* from (
+            select flicli.*
+            from (
+                select CONCAT(fli.logidinternal,'F') logidinternal,fli.personalnr,fli.username,
+                fli.datestr,fli.timestr,fli.timestamps
+                from face_log_info fli
+                <where>
+                    <if test='startTime != null and startTime != "".toString()  '>
+                        fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                    </if>
+                    <if test='endTime != null and endTime != "".toString()  '>
+                        AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                    </if>
+                </where>
+                UNION
+                select CONCAT(cli.logidinternal,'C') logidinternal,cli.personalnr,cli.username,
+                cli.datestr,cli.timestr,cli.timestamps
+                from card_log_info cli
+                <where>
+                    <if test='startTime != null and startTime != "".toString()  '>
+                        cli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                    </if>
+                    <if test='endTime != null and endTime != "".toString()  '>
+                        AND cli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                    </if>
+                </where>
+            ) flicli order by flicli.timestamps
+        ) a GROUP BY a.personalnr,a.datestr
+
+        UNION
+
+        select a.* from (
+            select flicli.*
+            from (
+                select CONCAT(fli.logidinternal,'F') logidinternal,fli.personalnr,fli.username,
+                fli.datestr,fli.timestr,fli.timestamps
+                from face_log_info fli
+                <where>
+                    <if test='startTime != null and startTime != "".toString()  '>
+                        fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                    </if>
+                    <if test='endTime != null and endTime != "".toString()  '>
+                        AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                    </if>
+                </where>
+                UNION
+                select CONCAT(cli.logidinternal,'C') logidinternal,cli.personalnr,cli.username,
+                cli.datestr,cli.timestr,cli.timestamps
+                from card_log_info cli
+                <where>
+                    <if test='startTime != null and startTime != "".toString()  '>
+                        cli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+                    </if>
+                    <if test='endTime != null and endTime != "".toString()  '>
+                        AND cli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+                    </if>
+                </where>
+            ) flicli order by flicli.timestamps desc
+        ) a GROUP BY a.personalnr,a.datestr
+
+        ) ua
+
+        ) tm on m.logidinternal = tm.logidinternal
+        ORDER BY  m.datestr desc,m.personalnr, m.timestr
+        ) mm,(SELECT @rowNum:=0) b
+	</select>
+
+    <select id="checkTypeNoDate" resultMap="AttendanceDomain" >
+        select kli.* from koaka_log_info kli
+        where kli.datestr = #{DateStr}
+        and kli.personalnr= #{PersonalNr}
+        and kli.logtype = #{logtype}
+    </select>
+
+    <select id="deleteTypeNoDate" >
+        delete from koaka_log_info
+        where datestr = #{DateStr}
+        and personalnr= #{PersonalNr}
+        and logtype = #{logtype}
+    </select>
+
+    <select id="getLogsMaxDate" resultType="String" >
+        select max(datestr) from koaka_log_info
+    </select>
+
+
+    <delete id="deletePostponeByDateStr">
+        DELETE FROM `koaka_postpone_log_info`
+        WHERE
+          datestr &gt;= #{startTime}
+        AND
+          datestr &lt;= #{endTime}
+    </delete>
+
+    <!--<delete id="deletePostponeByWhere">-->
+        <!--DELETE FROM `koaka_postpone_log_info`-->
+        <!--WHERE-->
+            <!--fli.datestr = #{DateStr}-->
+        <!--AND fli.logtype = #{logtype}-->
+        <!--AND fli.personalnr= #{PersonalNr}-->
+
+    <!--</delete>-->
+
+    <insert id="insertPostpone" >
+        INSERT ignore  koaka_postpone_log_info
+        (
+        <include refid="Colum" ></include>
+        )VALUES
+        (
+        #{LogIdInternal},
+        #{PersonalNr,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR},
+        sysdate(),
+        #{DateStr,jdbcType=VARCHAR},
+        #{TimeStr,jdbcType=VARCHAR},
+        #{logtype,jdbcType=VARCHAR},
+        #{timestamp,jdbcType=VARCHAR}
+        )
+
+    </insert>
+
+    <select id="getSignInsByWhere" resultMap="AttendanceDomain" >
+        select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+        select  m.* from koaka_log_info m right join (
+        select ua.* from (
+
+            select a.* from (
+                select fli.*
+                from koaka_log_info fli
+                WHERE
+                  fli.personalnr= #{PersonalNr}
+                    AND fli.datestr= #{DateStr}
+
+                order by fli.timestamps
+            ) a GROUP BY a.personalnr,a.datestr
+
+        ) ua) tm on m.logidinternal = tm.logidinternal
+
+        ORDER BY  m.datestr desc,m.username, m.timestr, m.timestamps desc
+        ) mm,(SELECT @rowNum:=0) b
+    </select>
+
+    <select id="getSignBackByWhere" resultMap="AttendanceDomain" >
+        select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+        select  m.* from koaka_log_info m right join (
+        select ua.* from (
+            select a.* from (
+                select fli.*
+                from koaka_log_info fli
+                <where>
+                        fli.personalnr= #{PersonalNr}
+                    AND fli.datestr= #{DateStr}
+                </where>
+                order by fli.timestamps desc
+            ) a GROUP BY a.personalnr,a.datestr
+
+        ) ua) tm on m.logidinternal = tm.logidinternal
+        ORDER BY  m.datestr desc,m.username, m.timestr, m.timestamps desc
+        ) mm,(SELECT @rowNum:=0) b
+    </select>
+
+    <select id="getPostponeEvents" resultMap="AttendanceDomain" >
+        select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+        select  m.* from koaka_postpone_log_info m right join (
+        select ua.* from (
+
+        select a.* from (
+        select fli.*
+        from koaka_postpone_log_info fli
+        <where>
+            <if test='startTime != null and startTime != "".toString()  '>
+                fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:01'))
+            </if>
+            <if test='endTime != null and endTime != "".toString()  '>
+                AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+            </if>
+        </where>
+        order by fli.timestamps
+        ) a GROUP BY a.personalnr,a.datestr
+
+        UNION
+
+        select a.* from (
+        select fli.*
+        from koaka_postpone_log_info fli
+        <where>
+            <if test='startTime != null and startTime != "".toString()  '>
+                fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:01'))
+            </if>
+            <if test='endTime != null and endTime != "".toString()  '>
+                AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+            </if>
+        </where>
+        order by fli.timestamps desc
+        ) a GROUP BY a.personalnr,a.datestr
+
+        ) ua) tm on m.logidinternal = tm.logidinternal
+
+        ORDER BY  m.datestr desc,m.username, m.timestr, m.timestamps
+        ) mm,(SELECT @rowNum:=0) b
+    </select>
+
+
+    <select id="countTodayPersons" resultType="int" >
+        select COUNT(m.p) FROM (
+            select COUNT(t.personalnr) p ,t.datestr FROM
+            koaka_log_info t
+            WHERE t.datestr = #{DateStr}  GROUP BY t.personalnr
+        ) m
+    </select>
+
+</mapper>

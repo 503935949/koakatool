@@ -1,0 +1,90 @@
+<!-- OVERVIEW -->
+<div class="panel panel-headline">
+	<!-- panel-heading start -->
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<p  class="panel-subtitle" >
+				员工列表
+			</p>
+		</h3>
+		
+	</div>
+	<!-- panel-heading end-->
+	<!-- panel-body start-->
+	<div class="panel-body">
+		<form id="searchForm" class="form-horizontal">
+			<div class="form-group">
+			    <label for="userId" class="col-xs-5 col-sm-2 col-md-1 control-label">ID</label>
+			    <div class="col-xs-7 col-sm-4 col-md-3">
+			       <input class="form-control" id="userId" name="job_number" placeholder="">
+			    </div>
+			     <label for="userName" class="col-xs-5 col-sm-2 col-md-1 control-label">名字</label>
+			    <div class="col-xs-7 col-sm-4 col-md-3">
+			       <input class="form-control" id="userName" name="name"  placeholder="">
+			    </div>
+
+			</div>
+			
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="btn-toolbar pull-right">
+
+						<button type="button" id="userQuery" class="btn btn-info" >
+							查询
+						</button>
+						<!--<button  id="userReset"  type="reset" class="btn btn-info" >-->
+							<!--重置-->
+						<!--</button>-->
+					</div>
+				</div>
+			</div>
+		</form>
+		<hr/>
+		<div class="toolbar" id="template" >
+			<div class="btn-toolbar pull-right">
+					<input type="button" value="新增" class="btn btn-success" data-toggle="modal" data-target="#insertModal" />
+					<!--<input type="button" value="编辑" class="btn btn-primary" data-toggle="modal" data-target="#demoEditModal" />-->
+					<input type="button" value="删除" id="userDel" class="btn btn-danger" data-toggle="modal" data-target="" />
+					<!--<input type="button" id="dt" value="导出" class="btn btn-info" data-toggle="modal"  />-->
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<!-- layui-table start-->
+				<div id="user">
+					<table id="userGrid" ></table>
+		        </div>
+			</div>	
+		</div>	
+	</div>
+	<!-- panel-body end-->
+</div>
+<!-- OVERVIEW end-->
+	
+		
+
+
+
+	
+<!-- <style> -->
+<!-- /*     #grid .k-grid-toolbar */ -->
+<!-- /*     { */ -->
+<!-- /*         padding: .6em 1.3em; */ -->
+<!-- /*     } */ -->
+<!-- /*     .category-label */ -->
+<!-- /*     { */ -->
+<!-- /*         vertical-align: middle; */ -->
+<!-- /*         padding-right: .5em; */ -->
+<!-- /*     } */ -->
+<!-- /*     #category */ -->
+<!-- /*     { */ -->
+<!-- /*         vertical-align: middle; */ -->
+<!-- /*     } */ -->
+<!-- /*     .toolbar { */ -->
+<!-- /*         float: right; */ -->
+<!-- /*     } */ -->
+<!-- </style>		 -->
+	
+	
+	
+	

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="utf-8">
+  <title>MANAGERS</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, maximum-scale=1.0, user-scalable=0">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <!--<include th:replace="../templates/base/header :: commonheader"></include>-->
+  <include th:replace="../templates/base/header"></include>
+  <style>
+
+      .tab-body{
+          position: absolute;
+          left:0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 999;
+          width: 100%;
+
+      }
+      .tab-body li{
+          background-color: rgba(250,250,250,0.95);
+          box-shadow: 1px 2px 4px rgba(106, 107, 98, 0.32);
+      }
+      .tab-body-content{
+          left:0;position: absolute;
+          right: 0;
+          top: 50px;
+          bottom: 0;
+          z-index: 10;
+          width: 100%;
+          overflow: hidden;
+          overflow-y: auto;
+          background-color: rgba(250,250,250,0.99);
+      }
+    .mainleft0 {
+      left:0px;
+    }
+    .mainleft200 {
+      left:200px;
+    }
+    .menuBarBody {
+      display: block;
+    }
+    .menuBarBodyShow {
+      display: block;
+    }
+    .menuBarBodyHide {
+        display: none!important;
+    }
+
+    @media screen and (max-width:480px){
+
+      .mainleft0 {
+        left:0px;
+      }
+      .mainleft200 {
+        left:0px;
+      }
+      .menuBarBody {
+        display: none!important;
+      }
+      #logo_text {
+        display: none!important;
+      }
+      .layui-footer{
+          display: none!important;
+      }
+    }
+  </style>
+<!--   <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1535444258434"  media="all"> -->
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">
+        <b id="logo_text">MANAGERS</b>
+        <a class="fa fa-list-ul menu-toggler navbar-brand" style="color:white;margin-top: 5px;" id="menu-toggler" href="#">
+            <i class="" id="menu-i" ></i>
+        </a>
+    </div>
+
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+    
+<!--       <li class="layui-nav-item"><a href="">控制台</a></li> -->
+<!--       <li class="layui-nav-item"><a href="">商品管理</a></li> -->
+<!--       <li class="layui-nav-item"><a href="">用户</a></li> -->
+<!--       <li class="layui-nav-item"> -->
+<!--         <a href="javascript:;">其它系统</a> -->
+<!--         <dl class="layui-nav-child"> -->
+<!--           <dd><a href="">邮件管理</a></dd> -->
+<!--           <dd><a href="">消息管理</a></dd> -->
+<!--           <dd><a href="">授权管理</a></dd> -->
+<!--         </dl> -->
+<!--       </li> -->
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+          <span>用户</span>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+  </div>
+
+  <div class="layui-side layui-bg-black menuBarBody " id="menuBarBody">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree" style="overflow:scroll;" lay-filter="menuBar" id="menuBar" >
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="layui-body  mainleft200" style="margin:5px;" id="main-body" >
+    <!-- 内容主体区域 -->
+		<div class="layui-tab layui-tab-brief " id="tabsBar"  lay-filter="tabsBar" lay-allowclose="">
+		  <ul class="layui-tab-title tab-body"  >
+
+		  </ul>
+		  <!-- 此处添加 layui-body 可以固定tab部分，需要改变left -->
+		  <div class="layui-tab-content tab-body-content" style="" id="tab_iframes"  >
+		  </div>
+		</div>
+  </div>
+
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © managers.com
+  </div>
+</div>
+
+<include th:replace="../templates/base/footer"></include>
+<script type="text/javascript" th:src="@{js/common/yrms-main.js}"></script>
+<!-- <script src="//res.layui.com/layui/src/layui.js?t=1535444258434" charset="utf-8"></script> -->
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+
+</script>
+<script>
+// var _hmt = _hmt || [];
+// (function() {
+//   var hm = document.createElement("script");
+//   hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+//   var s = document.getElementsByTagName("script")[0]; 
+//   s.parentNode.insertBefore(hm, s);
+// })();
+</script>
+<script type="text/javascript">
+		var menuDate = [
+
+		{	
+			resourceId:"000000",resourceName:"首页",ico:"lnr lnr-home",url:contextPath+"/attendance/",hasChild:"true",
+			chilNodes:[
+
+			]
+		},
+        {
+            resourceId:"000001",resourceName:"用户管理",ico:"lnr lnr-home",url:contextPath+"/user/",hasChild:"false",
+            chilNodes:[
+
+            ]
+        },
+        {
+            resourceId:"000002",resourceName:"机构管理",ico:"lnr lnr-home",url:contextPath+"/org/",hasChild:"false",
+            chilNodes:[
+
+            ]
+        },
+        {
+            resourceId:"00000z",resourceName:"数据源监控",ico:"lnr lnr-home",url:contextPath+"/druid/",hasChild:"false",
+            chilNodes:[
+
+            ]
+        },
+		// {
+		// 	resourceId:"000010",resourceName:"ECharts3.0",ico:"lnr lnr-chart-bars",url:"",hasChild:"true",
+		// 	chilNodes:[
+		// 		{resourceId:"000011",resourceName:"NPM关系图DEMO",ico:"lnr lnr-file-empty",url:contextPath+"/business/echarts/findNps_main_demoPage",hasChild:"false"},
+		// 		{resourceId:"000012",resourceName:"部分关系图",ico:"lnr lnr-file-empty",url:contextPath+"/business/echarts/findNps_main_demo_4one",hasChild:"false"},
+		// 		{resourceId:"000013",resourceName:"地图下钻",ico:"lnr lnr-file-empty",url:contextPath+"/business/echarts/find_chinamaps",hasChild:"false"},
+		// 		{resourceId:"000014",resourceName:"条形图_双Y轴",ico:"lnr lnr-file-empty",url:contextPath+"/business/echarts/find_bar_demo1",hasChild:"false"},
+		// 		{resourceId:"000015",resourceName:"条形图_3D",ico:"lnr lnr-file-empty",url:contextPath+"/business/echarts/find_bar_3D_BAR_DEMO",hasChild:"false"}
+		//
+		// 	]
+		// },
+		//
+		// {
+		// 	resourceId:"000020",resourceName:"知识库",ico:"fa fa-database",url:"",hasChild:"true",
+		// 	chilNodes:[
+		// 		{resourceId:"000021",resourceName:"LIST_DEMO",ico:"lnr lnr-dice",url:contextPath+"/business/knowledgebase/demo/findDemo_List_IndexPage",hasChild:"false"},
+		// 		{resourceId:"000022",resourceName:"Icons",ico:"lnr lnr-linearicons",url:"",hasChild:"false"},
+		// 		{resourceId:"000023",resourceName:"文件上传",ico:"lnr lnr-linearicons",url:contextPath+"/business/knowledgebase/uploadfile/findUpFile_IndexPage",hasChild:"false"},
+		// 		{resourceId:"000024",resourceName:"文件下载",ico:"lnr lnr-linearicons",url:contextPath+"/business/knowledgebase/downloadfile/findDownFile_IndexPage",hasChild:"false"},
+		// 		{resourceId:"000025",resourceName:"表格文件读写",ico:"lnr lnr-linearicons",url:contextPath+"/business/knowledgebase/tablefilereadandwrite/findTableFileReadAndWrite_IndexPage",hasChild:"false"},
+		// 		{resourceId:"000026",resourceName:"邮件",ico:"lnr lnr-linearicons",url:contextPath+"/business/knowledgebase/mail/findMail_IndexPage",hasChild:"false"},
+		// 		{resourceId:"000027",resourceName:"LIST_DEMO2",ico:"lnr lnr-dice",url:contextPath+"/business/knowledgebase/demo/findDemo_List_IndexPage2",hasChild:"false"},
+		// 	]
+		// },
+		// {
+		// 	resourceId:"000030",resourceName:"系统管理",ico:"fa fa-database",url:"",hasChild:"true",
+		// 	chilNodes:[
+		// 		{resourceId:"000031",resourceName:"用户管理",ico:"lnr lnr-dice",url:contextPath+"/user/userPage",hasChild:"false"},
+		// 	]
+		// },
+
+	];
+	
+	/* 页面资源整合 */
+	var page = {
+			home_url : contextPath+"/findHomePage",	
+			iframe_Id : "yrms_iframe"
+	}
+// 	layui.use('element', function(){
+// 		  var $ = layui.jquery
+// 		  ,element = layui.element();
+// 	});
+	
+//启动加载
+$(function() {
+
+/*-----------------------------------/
+/*	 界面自适应start
+/*----------------------------------*/
+    //自适应、菜单栏切换宽度设置
+    $("#menu-toggler").click(function(){
+        var menuBar = $("#menuBarBody");
+        if(menuBar.hasClass("menuBarBodyHide")){
+            menuBar.removeClass("menuBarBodyHide").addClass("menuBarBodyShow");
+            $("#main-body").removeClass("mainleft0").addClass("mainleft200");
+        }else{
+            menuBar.removeClass("menuBarBodyShow").addClass("menuBarBodyHide");
+            $("#main-body").removeClass("mainleft200").addClass("mainleft0");
+        }
+    });
+    $("#main-body").click(function(){
+        if($(window).width()<480){
+            $("#menuBarBody").addClass("menuBarBodyHide").removeClass("menuBarBodyShow");
+        }
+    });
+    $("#menuBarBody").mouseleave(function(){
+        if($(window).width()<480){
+            $("#menuBarBody").addClass("menuBarBodyHide").removeClass("menuBarBodyShow");
+        }
+    });
+    $(window).resize(function(){
+        if($(this).width()<480){
+            $("#menuBarBody").removeClass("menuBarBody");
+            if(!$("#menuBarBody").hasClass("menuBarBodyShow")){
+                $("#menuBarBody").addClass("menuBarBodyHide");
+            }
+        }else{
+            $("#menuBarBody").addClass("menuBarBody")
+                .removeClass("menuBarBodyHide").removeClass("menuBarBodyShow");
+            $("#main-body").removeClass("mainleft0").addClass("mainleft200");
+        }
+    });
+    //初始化界面自适应状态设置
+    $(window).trigger("resize");
+/*-----------------------------------/
+/*	 界面自适应end
+/*----------------------------------*/
+
+    //调整菜单栏滚动条美化
+    $("#menuBar").slimScroll({
+        height: '800px',
+        width: '200px',
+        wheelStep: 2,
+        size: '10px',
+    });
+    //打开第一个TAB页面（打开首页）
+    if(menuDate.length > 0 && !$.isEmptyObject(menuDate[0].url)) {
+        yrms.OpenStaticTab (yrms.tabBar,menuDate[0].resourceId,menuDate[0].resourceName,menuDate[0].url)
+    }
+
+
+    //建立左侧菜单
+    yrms.buildMenu_left("menuBar", menuDate);
+/*-----------------------------------/
+/*	 后台国际化切换
+/*----------------------------------*/
+
+
+    function interna(language) {
+        var _url = contextPath+'/interna?language=' + language;
+        $.ajax({
+            type: 'post',
+            url: _url,
+            dataType: 'json',
+            success: function (data) {
+                if (data.isReload == "true") {
+                    yrms.sourceName = "message";
+                    yrms.path = contextPath + "/language/business/";
+                    yrms.language = data.locale;
+                    top.location.reload();
+                }
+            }
+        });
+    }
+});
+
+
+
+</script>
+</body>
+</html>
+

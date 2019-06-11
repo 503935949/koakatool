@@ -1,0 +1,154 @@
+{
+    "errcode": 0,
+    "errmsg": "ok",
+    "count": 5,
+    "total": 5,
+    "next_spnum": 201905280005,
+    "data": [
+        {
+            "spname": "请假",
+            "apply_name": "林工",
+            "apply_org": "农银金融资产投资有限公司",
+            "approval_name": [
+                "林工"
+            ],
+            "notify_name": [],
+            "sp_status": 2,
+            "sp_num": 201905280001,
+            "leave": {
+                "timeunit": 0,
+                "leave_type": 2,
+                "start_time": 1558972800,
+                "end_time": 1558972800,
+                "duration": 12,
+                "reason": "事假"
+            },
+            "comm": {
+                "apply_data": "{"smart-select":{"id":"smart-select","locked":"true","placeholder":"","title":"请假类型","type":"select","un_print":false,"validate":true,"value":"事假","choose_type":"multi","setIndex":"0","warning":""},"begin_time":{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},"end_time":{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},"duration":{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"43200","setvalue":43200,"durationDay":"0.5","durationHour":"12.0","warning":""},"smart-time":{"id":"smart-time","placeholder":"","title":"请假","type":"smart","un_print":true,"validate":true,"value":[{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"43200","setvalue":43200,"durationDay":"0.5","durationHour":"12.0","warning":""}],"choose_type":"multi","warning":""},"item-1497581399901":{"id":"item-1497581399901","placeholder":"请输入请假事由","title":"请假事由","type":"textarea","un_print":false,"validate":false,"value":"世界那么大，我想去看看","choose_type":"multi","warning":""}}"
+            },
+            "mediaids": [],
+            "apply_time": 1559010160,
+            "apply_user_id": "ZiYueQingHan"
+        },
+        {
+            "spname": "因公外出",
+            "apply_name": "林工",
+            "apply_org": "农银金融资产投资有限公司",
+            "approval_name": [
+                "林工"
+            ],
+            "notify_name": [],
+            "sp_status": 2,
+            "sp_num": 201905280002,
+            "comm": {
+                "apply_data": "{"begin_time":{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},"end_time":{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1559102400000","setvalue":1559102400000,"dateHalfDayValue":1559102400000,"setIndex":[513,1],"warning":""},"duration":{"id":"duration","title":"外出时长","validate":true,"un_print":false,"placeholder":"外出时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"durationDay":2,"durationHour":"12.0","warning":""},"smart-time":{"id":"smart-time","placeholder":"","title":"外出","type":"smart","un_print":true,"validate":true,"value":[{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1559102400000","setvalue":1559102400000,"dateHalfDayValue":1559102400000,"setIndex":[513,1],"warning":""},{"id":"duration","title":"外出时长","validate":true,"un_print":false,"placeholder":"外出时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"durationDay":2,"durationHour":"12.0","warning":""}],"choose_type":"multi","warning":""},"item-1497581575653":{"id":"item-1497581575653","placeholder":"","title":"外出地点","type":"text","un_print":false,"validate":true,"value":"家","choose_type":"multi","warning":""},"item-1558598751853":{"id":"item-1558598751853","locked":false,"placeholder":"","title":"外出事由","type":"select","un_print":false,"validate":true,"value":"其他","choose_type":"multi","setIndex":"5","warning":""},"item-1558598634774":{"id":"item-1558598634774","locked":false,"placeholder":"","title":"是否拜访业务客户","type":"select","un_print":false,"validate":true,"value":"否","choose_type":"multi","setIndex":"1","warning":""},"item-1497581558567":{"id":"item-1497581558567","placeholder":"","title":"情况说明","type":"textarea","un_print":false,"validate":true,"value":"测试一下","choose_type":"multi","warning":""}}"
+            },
+            "mediaids": [],
+            "apply_time": 1559025576,
+            "apply_user_id": "ZiYueQingHan"
+        },
+        {
+            "spname": "用车申请",
+            "apply_name": "林工",
+            "apply_org": "农银金融资产投资有限公司",
+            "approval_name": [
+                "林工"
+            ],
+            "notify_name": [],
+            "sp_status": 2,
+            "sp_num": 201905280003,
+            "comm": {
+                "apply_data": "{"item-1558524536064":{"id":"item-1558524536064","locked":false,"placeholder":"","title":"上车地点","type":"text","un_print":false,"validate":true,"value":"测试","choose_type":"multi","warning":""},"item-1493709109765":{"id":"item-1493709109765","title":"下车地点","type":"text","validate":true,"value":"1","choose_type":"multi","warning":""},"item-1558524574845":{"id":"item-1558524574845","locked":false,"placeholder":"","title":"叫车方式","type":"select","un_print":false,"validate":true,"value":"公司配车","choose_type":"multi","setIndex":"0","warning":""},"item-1558524614987":{"id":"item-1558524614987","locked":false,"placeholder":"","title":"行车方式","type":"select","un_print":false,"validate":true,"value":"往返","choose_type":"multi","setIndex":"0","warning":""},"item-1558524672323":{"id":"item-1558524672323","locked":false,"placeholder":"","title":"用车日期","type":"date","un_print":false,"validate":true,"value":1558972800000,"choose_type":"multi","warning":""},"item-1558529957528":{"id":"item-1558529957528","locked":false,"placeholder":"","title":"出发时间","type":"datehour","un_print":false,"validate":true,"value":1559025540000,"choose_type":"multi","dateHourValue":1559025540000,"setIndex":[512,14,39],"warning":""},"item-1558529993655":{"id":"item-1558529993655","locked":false,"placeholder":"","title":"回程时间","type":"datehour","un_print":false,"validate":true,"value":1558978740000,"choose_type":"multi","dateHourValue":1558978740000,"setIndex":[512,1,39],"warning":""},"item-1493383337907":{"id":"item-1493383337907","title":"预计公里数","type":"text","validate":false,"value":"了","choose_type":"multi","warning":""},"item-1558524735350":{"id":"item-1558524735350","locked":false,"placeholder":"","title":"用车事由","type":"select","un_print":false,"validate":true,"value":"带重要文件或公章外出","choose_type":"multi","setIndex":"3","warning":""}}"
+            },
+            "mediaids": [],
+            "apply_time": 1559025615,
+            "apply_user_id": "ZiYueQingHan"
+        },
+        {
+            "spname": "请假",
+            "apply_name": "林工",
+            "apply_org": "农银金融资产投资有限公司",
+            "approval_name": [
+                "林工"
+            ],
+            "notify_name": [],
+            "sp_status": 1,
+            "sp_num": 201905280004,
+            "leave": {
+                "timeunit": 0,
+                "leave_type": 3,
+                "start_time": 1556985600,
+                "end_time": 1557115200,
+                "duration": 48,
+                "reason": "病假"
+            },
+            "comm": {
+                "apply_data": {"smart-select":{"id":"smart-select","locked":"true","placeholder":"","title":"请假类型","type":"select","un_print":false,"validate":true,"value":"病假","choose_type":"multi"},"begin_time":{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556985600000","setvalue":1556985600000,"date_hour":"上午"},"end_time":{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1557115200000","setvalue":1557115200000,"date_hour":"下午"},"duration":{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"day":"2.0","hour":48},"smart-time":{"id":"smart-time","placeholder":"","title":"请假","type":"smart","un_print":true,"validate":true,"value":[{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556985600000","setvalue":1556985600000,"date_hour":"上午"},{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1557115200000","setvalue":1557115200000,"date_hour":"下午"},{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"day":"2.0","hour":48}],"choose_type":"multi"},"item-1497581399901":{"id":"item-1497581399901","placeholder":"请输入请假事由","title":"请假事由","type":"textarea","un_print":false,"validate":false,"value":"","choose_type":"multi"}}
+            },
+            "mediaids": [],
+            "apply_time": 1559029917,
+            "apply_user_id": "ZiYueQingHan"
+        },
+        {
+            "spname": "请假",
+            "apply_name": "林工",
+            "apply_org": "农银金融资产投资有限公司",
+            "approval_name": [
+                "林工"
+            ],
+            "notify_name": [],
+            "sp_status": 1,
+            "sp_num": 201905280005,
+            "leave": {
+                "timeunit": 0,
+                "leave_type": 3,
+                "start_time": 1556510400,
+                "end_time": 1556596800,
+                "duration": 36,
+                "reason": "病假"
+            },
+            "comm": {
+                "apply_data": {
+					"smart-select":
+						{"id":"smart-select","locked":"true","placeholder":"","title":"请假类型","type":"select","un_print":false,"validate":true,"value":"病假",			"choose_type":"multi"},
+					"item-1559031760782":
+						{"id":"item-1559031760782","locked":false,"placeholder":"","title":"部门","type":"department","un_print":false,"validate":true,"value":[{"name":"资管业务筹备组","id":"25"}],"choose_type":"single","result":[{"id":"25","name":"资管业务筹备组"}],"selected":["25"]},
+					"begin_time":
+						{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556510400000","setvalue":1556510400000,"date_hour":"下午"},
+					"end_time":
+						{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556596800000","setvalue":1556596800000,"date_hour":"下午"},
+					"duration":
+						{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"129600","setvalue":129600,"day":"1.5","hour":36},
+					"smart-time":
+						{"id":"smart-time","placeholder":"","title":"请假","type":"smart","un_print":true,"validate":true,"value":[{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556510400000","setvalue":1556510400000,"date_hour":"下午"},{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1556596800000","setvalue":1556596800000,"date_hour":"下午"},{"id":"duration","title":"请假时长","validate":true,"un_print":false,"placeholder":"请假时长","type":"durationdatehalfday","value":"129600","setvalue":129600,"day":"1.5","hour":36}],"choose_type":"multi"},
+					"item-1497581399901":
+						{"id":"item-1497581399901","placeholder":"请输入请假事由","title":"请假事由","type":"textarea","un_print":false,"validate":false,"value":"","choose_type":"multi"}
+					}
+            },
+            "mediaids": [],
+            "apply_time": 1559031850,
+            "apply_user_id": "ZiYueQingHan"
+        }
+    ]
+}
+
+
+{   "begin_time":{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},
+    "end_time":{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1559102400000","setvalue":1559102400000,"dateHalfDayValue":1559102400000,"setIndex":[513,1],"warning":""},
+    "duration":{"id":"duration","title":"外出时长","validate":true,"un_print":false,"placeholder":"外出时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"durationDay":2,"durationHour":"12.0","warning":""},
+    "smart-time":{"id":"smart-time","placeholder":"","title":"外出","type":"smart","un_print":true,"validate":true,"value":[{"id":"begin_time","title":"开始时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1558972800000","setvalue":1558972800000,"dateHalfDayValue":1558972800000,"setIndex":[512,0],"warning":""},{"id":"end_time","title":"结束时间","validate":true,"un_print":false,"placeholder":"请选择","type":"datehalfday","value":"1559102400000","setvalue":1559102400000,"dateHalfDayValue":1559102400000,"setIndex":[513,1],"warning":""},{"id":"duration","title":"外出时长","validate":true,"un_print":false,"placeholder":"外出时长","type":"durationdatehalfday","value":"172800","setvalue":172800,"durationDay":2,"durationHour":"12.0","warning":""}],"choose_type":"multi","warning":""},
+    "item-1497581575653":{"id":"item-1497581575653","placeholder":"","title":"外出地点","type":"text","un_print":false,"validate":true,"value":"家","choose_type":"multi","warning":""},
+    "item-1558598751853":{"id":"item-1558598751853","locked":false,"placeholder":"","title":"外出事由","type":"select","un_print":false,"validate":true,"value":"其他","choose_type":"multi","setIndex":"5","warning":""},
+    "item-1558598634774":{"id":"item-1558598634774","locked":false,"placeholder":"","title":"是否拜访业务客户","type":"select","un_print":false,"validate":true,"value":"否","choose_type":"multi","setIndex":"1","warning":""},
+    "item-1497581558567":{"id":"item-1497581558567","placeholder":"","title":"情况说明","type":"textarea","un_print":false,"validate":true,"value":"测试一下","choose_type":"multi","warning":""}
+}
+
+[
+    {"id":"smart-select","title":"请假类型","value":"病假","type":"select"},
+    {"id":"smart-time","title":"请假","value":[
+            {"id":"begin_time","title":"开始时间","value":1557201600000,"type":"datehalfday"},
+            {"id":"end_time","title":"结束时间","value":1557201600000,"type":"datehalfday"},
+            {"id":"duration","title":"请假时长","value":43200,"type":"durationdatehalfday"}
+        ],"type":"smart"},
+    {"id":"item-1497581399901","title":"请假事由","value":"","type":"textarea"}
+]

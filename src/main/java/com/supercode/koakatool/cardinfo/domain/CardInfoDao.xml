@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.cardinfo.domain.CardInfoDao">
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.cardinfo.domain.CardInfoDomain" id="cardInfo">
+		<id column="logidinternal" property="LogIdInternal" />
+		<id column="personalnr" property="PersonalNr" />
+		<result column="cardnr" property="CardNr" />
+		<result column="deviceaddress" property="DeviceAddress" />
+		<result column="datapointtype" property="DataPointType" />
+		<result column="logdate" property="LogDate" />
+		<result column="eventtypeinfo" property="EventTypeInfo" />
+		<result column="username" property="username" />
+		<result column="cardname" property="cardname" />
+		<result column="allname" property="Name" />
+		<result column="createtime" property="CreateTime" />
+		<result column="datestr" property="DateStr" />
+		<result column="timestr" property="TimeStr" />
+    </resultMap>
+    
+    <sql id = "cardColum">
+		logidinternal,
+		personalnr,
+		cardnr,
+		deviceaddress,
+		datapointtype,
+		logdate,
+		eventtypeinfo,
+		username,
+		cardname,
+		allname,
+		createtime,
+		datestr,
+		timestr
+    </sql>
+
+
+	<insert id="insert" >
+		INSERT ignore  card_log_info
+		(
+		<include refid="cardColum" ></include>
+		,
+		timestamps
+		)VALUES
+		(
+		#{LogIdInternal},
+		#{PersonalNr,jdbcType=VARCHAR},
+		#{CardNr,jdbcType=VARCHAR},
+		#{DeviceAddress,jdbcType=VARCHAR},
+		#{DataPointType,jdbcType=VARCHAR},
+		#{LogDate,jdbcType=VARCHAR},
+		#{EventTypeInfo,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{cardname,jdbcType=VARCHAR},
+		#{Name,jdbcType=VARCHAR},
+		sysdate(),
+		#{DateStr,jdbcType=VARCHAR},
+		#{TimeStr,jdbcType=VARCHAR},
+		UNIX_TIMESTAMP(#{LogDate,jdbcType=VARCHAR})
+		)
+
+	</insert>
+
+	<select id="getCardEvents" resultMap="cardInfo" >
+		select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+			select  m.* from card_log_info m right join (
+				select ua.* from (
+				select MIN(a.logidinternal+0) sd from card_log_info a GROUP BY a.personalnr,a.datestr
+				UNION
+				select MAX(a.logidinternal+0) sd from card_log_info a GROUP BY a.personalnr,a.datestr
+			) ua) tm on m.logidinternal = tm.sd
+			<where>
+				<if test='startTime != null and startTime != "".toString()  '>
+					m.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+				</if>
+				<if test='startTime != null and startTime != "".toString()  '>
+					AND m.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+				</if>
+			</where>
+			ORDER BY  m.datestr desc,m.personalnr, m.timestr, m.logidinternal desc
+		) mm,(SELECT @rowNum:=0) b
+	</select>
+
+	<select id="getLogsMaxDate" resultType="String" >
+        select max(datestr) from card_log_info
+    </select>
+	
+</mapper>

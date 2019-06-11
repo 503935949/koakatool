@@ -1,0 +1,53 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org"  th:fragment="commonfooter">
+
+    <!-- Javascript -->
+    <script type="text/javascript" th:src="@{/resource/jquery/jquery.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{resource/jquery/2.2.3/jquery-2.2.3.min.js/}"></script>-->
+    <script type="text/javascript" th:src="@{/resource/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+    <!-- bootstrap.min.js -->
+    <script type="text/javascript" th:src="@{/resource/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <!-- bootstrap-table.min.js -->
+    <script type="text/javascript" th:src="@{/resource/bootstrap-table-develop/bootstrap-table.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resource/x-editable-develop/dist/bootstrap3-editable/js/bootstrap-editable.js}"></script>
+    <script type="text/javascript" th:src="@{/resource/x-editable-develop/dist/bootstrap-table-editable.js}"></script>
+    <!-- 引入中文语言包 -->
+    <script type="text/javascript" th:src="@{/resource/bootstrap-table-develop/bootstrap-table-zh-CN.min.js}"></script>
+    <!-- bootstrap-tab.js -->
+    <script type="text/javascript" th:src="@{/resource/bootstrap-tab-master/js/bootstrap-tab.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/resource/layer-v3.1.1/layer/layer.js}" charset="utf-8"></script>
+    <!-- layUI -->
+    <script type="text/javascript" th:src="@{/resource/layui-v2.4.0/layui/layui.all.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/resource/layui-v2.4.0/layui/layui.js}" charset="utf-8"></script>
+
+    <!-- jqueryUI -->
+    <script type="text/javascript" th:src="@{/resource/jquery-ui/js/jquery-ui-1.10.0.custom.min.js}" charset="utf-8"></script>
+
+
+
+
+
+    <!-- jquery-validation-1.16.0 -->
+    <script type="text/javascript" th:src="@{/resource/jquery-validation-1.16.0/dist/jquery.validate.js}"></script>
+    <!-- YRMS前端框架JS -->
+    <script type="text/javascript" th:src="@{/js/common/yrms-layUI-layer.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/yrms-jQuery-validata.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/yrms-common.js}"></script>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        (function(){
+            //也可以这么写：var _ctx = [[${#httpServletRequest.getContextPath()}]];
+            var _ctx = /*[[${#httpServletRequest.getContextPath()}]]*/"";
+            $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+                if (!options.crossDomain) {
+                    options.url = _ctx + options.url;
+                }
+            });
+            contextPath = _ctx;
+        })();
+        /*]]>*/
+    </script>
+</th:block>

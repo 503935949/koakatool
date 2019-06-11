@@ -1,0 +1,45 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org"  th:fragment="commonheader">
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/stylesheets/theme.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/bootstrap/3.3.7/css/bootstrap.min.css}"  media="all"/>
+    <!-- BOOTSTRAP table CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/bootstrap-table-develop/bootstrap-table.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/x-editable-develop/dist/bootstrap3-editable/css/bootstrap-editable.css}" />
+    <!-- BOOTSTRAP tab CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/bootstrap-tab-master/css/bootstrap-tab.css}" />
+
+    <!-- jquery Le styles -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/jquery-ui/css/custom-theme/jquery-ui-1.10.0.custom.css}" />
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/jquery-ui/css/custom-theme/jquery.ui.1.10.0.ie.css}"/>
+    <![endif]-->
+
+
+    <!-- layer -->
+    <link  th:href="@{/resource/layer-v3.1.1/layer/theme/default/layer.css}" rel="stylesheet" />
+    <!-- layUI -->
+    <link  th:href="@{/resource/layui-v2.4.0/layui/css/layui.css}" rel="stylesheet" />
+
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/font-awesome/css/font-awesome.min.css}" />
+    <!--[if IE 7]>
+       <link rel="stylesheet" type="text/css" th:href="@{/resource/font-awesome/css/font-awesome-ie7.min.css}" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" th:href="@{/resource/linearicons/style.css}" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <meta name="renderer" content="webkit|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- 页面字符集 -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta name="ctx" th:href="${#httpServletRequest.getContextPath()}" />
+
+
+
+
+</th:block>

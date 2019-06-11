@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.attendance.domain.OvertimeDao">
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.attendance.domain.OvertimeDomain" id="OvertimeDomain">
+		<id column="logidinternal" property="LogIdInternal" />
+		<result column="personalnr" property="PersonalNr" />
+		<result column="username" property="username" />
+		<result column="createtime" property="CreateTime" />
+		<result column="datestr" property="DateStr" />
+		<result column="starttime" property="starttime" />
+        <result column="endtime" property="endtime" />
+		<result column="overtimeh" property="overtimeh" />
+		<result column="rowNum" property="rownum" />
+		<result column="daysum" property="daysum" />
+    </resultMap>
+    
+    <sql id = "Colum">
+		logidinternal,
+		personalnr,
+		username,
+		createtime,
+		datestr,
+		starttime,
+		endtime,
+		overtimeh
+    </sql>
+
+
+	<insert id="insert" >
+		INSERT ignore  koaka_overtime_info
+		(
+		<include refid="Colum" ></include>
+		)VALUES
+		(
+		#{LogIdInternal},
+		#{PersonalNr,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		sysdate(),
+		#{DateStr,jdbcType=VARCHAR},
+		#{starttime,jdbcType=VARCHAR},
+        #{endtime,jdbcType=VARCHAR},
+		#{overtimeh,jdbcType=VARCHAR}
+		)
+
+	</insert>
+
+    <select id="getOvertimeEvents" resultMap="OvertimeDomain" >
+		select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+		select koim.* from (
+		SELECT koi.personalnr,koi.username,SUM(koi.overtimeh+0) overtimeh FROM `koaka_overtime_info` koi
+		WHERE
+          koi.datestr &gt;= #{startTime}
+        AND
+          koi.datestr &lt;= #{endTime}
+		GROUP BY koi.personalnr,koi.username
+		) koim
+		ORDER BY koim.overtimeh DESC
+		) mm,(SELECT @rowNum:=0) b
+    </select>
+
+
+
+    <delete id="deleteOvertimeByDateStr">
+        DELETE FROM `koaka_overtime_info`
+        WHERE
+          datestr &gt;= #{startTime}
+        AND
+          datestr &lt;= #{endTime}
+    </delete>
+
+	<select id="getOverNightInfos" resultMap="OvertimeDomain" >
+		select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+		select hb.personalnr,hb.username, COUNT(hb.personalnr) daysum ,group_concat(CONCAT(CONCAT(hb.datestr,' '),hb.timestr)) overtimeh from
+		(
+			select qwg.* from
+			(
+				select qw.* from
+				(
+					select t.* from (
+
+		select CONCAT(fli.logidinternal,'F') logidinternal,fli.personalnr,fli.username,
+		fli.datestr,fli.timestr,fli.timestamps
+		from face_log_info fli
+		<where>
+			<if test='startTime != null and startTime != "".toString()  '>
+				fli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+			</if>
+			<if test='endTime != null and endTime != "".toString()  '>
+				AND fli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+			</if>
+		</where>
+		UNION
+		select CONCAT(cli.logidinternal,'C') logidinternal,cli.personalnr,cli.username,
+		cli.datestr,cli.timestr,cli.timestamps
+		from card_log_info cli
+		<where>
+			<if test='startTime != null and startTime != "".toString()  '>
+				cli.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+			</if>
+			<if test='endTime != null and endTime != "".toString()  '>
+				AND cli.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+			</if>
+		</where>
+
+		) t where
+					STR_TO_DATE(t.timestr,'%H:%i:%s')  &gt;= STR_TO_DATE('00:00:00','%H:%i:%s')
+					AND STR_TO_DATE(t.timestr,'%H:%i:%s')  &lt;= STR_TO_DATE('06:00:00','%H:%i:%s')
+				)qw ORDER BY qw.timestamps
+			) qwg GROUP BY qwg.datestr,qwg.personalnr
+		) hb GROUP BY hb.personalnr ORDER BY daysum desc
+		) mm,(SELECT @rowNum:=0) b
+	</select>
+
+</mapper>

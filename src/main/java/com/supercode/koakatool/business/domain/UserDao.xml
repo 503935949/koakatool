@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.business.domain.UserDao">
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.business.domain.UserDomain" id="UserDomain">
+        <id column="job_number" property="job_number" />
+        <result column="username" property="name" />
+    </resultMap>
+    
+    <sql id = "userColum">
+    	job_number,
+    	username
+    </sql>
+
+
+	<insert id="insert">
+		insert ignore koaka_user
+		(
+		<include refid="userColum" ></include>
+		)
+		values (
+		#{job_number,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByKey">
+		update koaka_user
+		<set>
+			username = #{name,jdbcType=VARCHAR}
+		</set>
+		WHERE
+		job_number = #{job_number}
+
+	</update>
+
+	<delete id="deleteByKey">
+		delete FROM  koaka_user
+		WHERE
+		job_number = #{job_number}
+
+	</delete>
+	
+	<!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 -->
+	<select id="findByWhereForList" parameterType="string" resultMap="UserDomain">
+	    SELECT
+			sysuser.job_number,
+			sysuser.username
+	    FROM 	
+	    	koaka_user sysuser
+		<where>
+			<if test=" job_number != null and job_number != ''.toString()" >
+				AND sysuser.job_number = #{job_number}
+			</if>
+			<!--<if test=" name != null and name != ''.toString()" >-->
+				<!--AND sysuser.username like CONCAT(CONCAT('%',#{name}),'%')-->
+			<!--</if>-->
+			<if test=" name != null and name != ''.toString()" >
+				AND sysuser.username= #{name}
+			</if>
+
+		</where>
+	    ORDER BY 
+	    	sysuser.job_number
+	</select>
+	
+</mapper>

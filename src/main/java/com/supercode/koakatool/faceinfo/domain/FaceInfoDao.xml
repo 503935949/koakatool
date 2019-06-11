@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.faceinfo.domain.FaceInfoDao">
+
+
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.faceinfo.domain.FaceInfoDomain" id="FaceInfoDomain">
+        <id column="logidinternal" property="id" />
+        <result column="timestamps" property="timestamp" />
+		<result column="datestr" property="DateStr" />
+		<result column="timestr" property="TimeStr" />
+		<result column="createtime" property="CreateTime" />
+		<association property="subject" javaType="com.supercode.koakatool.business.domain.UserDomain" >
+			<id column="personalnr" property="job_number" />
+			<result  column="username" property="name"/>
+		</association>
+
+    </resultMap>
+
+
+    
+    <sql id = "faceColum">
+    	logidinternal,
+    	personalnr,
+    	username,
+    	createtime,
+    	datestr,
+    	timestr,
+    	timestamps
+    </sql>
+
+
+	<insert id="insert">
+		insert ignore face_log_info
+		(
+		<include refid="faceColum" ></include>
+		)
+		values (
+		#{id,jdbcType=VARCHAR},
+        #{subject.job_number,jdbcType=VARCHAR},
+		#{subject.name,jdbcType=VARCHAR},
+        sysdate(),
+        #{DateStr,jdbcType=VARCHAR},
+        #{TimeStr,jdbcType=VARCHAR},
+        #{timestamp,jdbcType=VARCHAR}
+
+		)
+	</insert>
+
+	
+	<!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 -->
+	<select id="findByWhereForList" parameterType="string" resultMap="FaceInfoDomain">
+	    SELECT
+            logidinternal,
+            personalnr,
+            username,
+            createtime,
+            datestr,
+            timestr,
+            timestamps
+	    FROM
+            face_log_info
+		<where>
+			<!--<if test=" job_number != null and job_number != ''.toString()" >-->
+				<!--AND sysuser.job_number = #{job_number}-->
+			<!--</if>-->
+			<!--<if test=" username != null and username != ''.toString()" >-->
+				<!--AND sysuser.username like CONCAT(CONCAT('%',#{name}),'%')-->
+			<!--</if>-->
+
+		</where>
+	    ORDER BY
+            logidinternal
+	</select>
+
+
+    <select id="getFaceEvents" resultMap="FaceInfoDomain" >
+		select @rowNum:=@rowNum + 1 AS 'rowNum', mm.* from (
+			select  m.* from face_log_info m right join (
+				select ua.* from (
+				select MIN(a.logidinternal+0) sd from face_log_info a GROUP BY a.personalnr,a.datestr
+				UNION
+				select MAX(a.logidinternal+0) sd from face_log_info a GROUP BY a.personalnr,a.datestr
+			) ua) tm on m.logidinternal = tm.sd
+			<where>
+				<if test='startTime != null and startTime != "".toString()  '>
+					m.timestamps &gt;= unix_timestamp(CONCAT(#{startTime}, ' 00:00:00'))
+				</if>
+				<if test='startTime != null and startTime != "".toString()  '>
+					AND m.timestamps &lt;= unix_timestamp(CONCAT(#{endTime}, ' 23:59:59'))
+				</if>
+			</where>
+			ORDER BY  m.datestr desc,m.personalnr, m.timestr, m.logidinternal desc
+		) mm,(SELECT @rowNum:=0) b
+	</select>
+
+	<select id="getLogsMaxDate" resultType="String" >
+        select max(datestr) from face_log_info
+    </select>
+	
+</mapper>

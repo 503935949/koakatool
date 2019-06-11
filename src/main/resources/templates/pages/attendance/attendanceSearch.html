@@ -1,0 +1,110 @@
+<!-- OVERVIEW -->
+<div class="panel panel-headline">
+	<!-- panel-heading start -->
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<p  class="panel-subtitle" >
+				NYTZ_考勤管理
+			</p>
+		</h3>
+		
+	</div>
+	<!-- panel-heading end-->
+	<!-- panel-body start-->
+	<div class="panel-body">
+		<form id="searchForm" class="form-horizontal">
+			<div class="form-group">
+			    <label for="startTime" class="col-xs-5 col-sm-2 col-md-1 control-label">起始时间</label>
+			    <div class="col-xs-7 col-sm-4 col-md-3">
+			       <input class="form-control" id="startTime" name="startTime" placeholder="起始时间">
+			    </div>
+			     <label for="endTime" class="col-xs-5 col-sm-2 col-md-1 control-label">截止时间</label>
+			    <div class="col-xs-7 col-sm-4 col-md-3">
+			       <input class="form-control" id="endTime" name="endTime"  placeholder="截止时间">
+			    </div>
+
+			</div>
+			
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="btn-toolbar pull-right">
+						<!--<button type="button" id="getCardInfo" class="btn btn-danger" >-->
+							<!--拉取门卡日志-->
+						<!--</button>-->
+						<!--<button type="button" id="getFaceInfo" class="btn btn-default" >-->
+							<!--拉取人脸日志（投产时不需要）-->
+						<!--</button>-->
+						<button type="button" id="getCardFaceInfo" class="btn btn-danger" >
+							拉取两个系统日志
+						</button>
+						<button type="button" id="getPostponeInfoXls" class="btn btn-success" >
+							导出打卡（延时弹性）（AT）
+						</button>
+						<button type="button" id="getOvertimeInfoXls" class="btn btn-success" >
+							导出加班排名（OT）
+						</button>
+						<button type="button" id="getOverNightInfoXls" class="btn btn-success" >
+							导出熬夜排名（ON）
+						</button>
+						<button type="button" id="getQxwxWorkflowEtInfo" class="btn btn-success" >
+							导出审批流程
+						</button>
+						<button type="button" id="userQuery" class="btn btn-info" >
+							查询
+						</button>
+						<button  id="sReset"  type="reset" class="btn btn-info" >
+							重置
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<hr/>
+		<!--<div class="toolbar" id="template" >-->
+			<!--<div class="btn-toolbar pull-right">-->
+					<!--<input type="button" value="新增" class="btn btn-success" data-toggle="modal" data-target="#insertModal" />-->
+					<!--<input type="button" value="编辑" class="btn btn-primary" data-toggle="modal" data-target="#demoEditModal" />-->
+					<!--<input type="button" value="删除" class="btn btn-danger" data-toggle="modal" data-target="#demoDeleteModal" />-->
+					<!--<input type="button" id="dt" value="导出" class="btn btn-info" data-toggle="modal"  />-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="form-group">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<!-- layui-table start-->
+				<div id="user">
+					<table id="userGrid" ></table>
+		        </div>
+			</div>	
+		</div>	
+	</div>
+	<!-- panel-body end-->
+</div>
+<!-- OVERVIEW end-->
+	
+		
+
+
+
+	
+<!-- <style> -->
+<!-- /*     #grid .k-grid-toolbar */ -->
+<!-- /*     { */ -->
+<!-- /*         padding: .6em 1.3em; */ -->
+<!-- /*     } */ -->
+<!-- /*     .category-label */ -->
+<!-- /*     { */ -->
+<!-- /*         vertical-align: middle; */ -->
+<!-- /*         padding-right: .5em; */ -->
+<!-- /*     } */ -->
+<!-- /*     #category */ -->
+<!-- /*     { */ -->
+<!-- /*         vertical-align: middle; */ -->
+<!-- /*     } */ -->
+<!-- /*     .toolbar { */ -->
+<!-- /*         float: right; */ -->
+<!-- /*     } */ -->
+<!-- </style>		 -->
+	
+	
+	
+	

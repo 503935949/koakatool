@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>考勤记录管理</title>
+		<include th:replace="../templates/base/header"></include>
+	</head>
+	<body>
+		<!-- container-fluid start-->
+		<div class="container-fluid panel">
+<!-- 			<table id="userGrid" data-response-handler="responseHandler"> -->
+			<!-- OVERVIEW -->
+			
+			
+				<!-- 查询列表 -->
+				<include th:replace="../templates/pages/attendance/attendanceSearch" ></include>
+
+
+			
+			
+			
+			
+			<!-- OVERVIEW end-->
+		</div>
+		<!-- container-fluid end-->
+	</body>
+	<include th:replace="../templates/base/footer"></include>
+	<script type="text/javascript" th:src="@{/js/pages/attendance/attendance.js}"></script>
+
+
+
+</html>

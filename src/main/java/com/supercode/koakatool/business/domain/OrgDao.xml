@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supercode.koakatool.business.domain.OrgDao">
+
+	<!-- 为了返回list 类型而定义的returnMap -->
+	<resultMap type="com.supercode.koakatool.business.domain.OrgDomain" id="OrgDomain">
+        <id column="org_id" property="org_id" />
+        <result column="orgname" property="name" />
+    </resultMap>
+    
+    <sql id = "orgColum">
+    	org_id,
+    	orgname
+    </sql>
+
+
+	<insert id="insert">
+		insert ignore koaka_org
+		(
+		<include refid="orgColum" ></include>
+		)
+		values (
+		#{org_id,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByKey">
+		update koaka_org
+		<set>
+			orgname = #{name,jdbcType=VARCHAR}
+		</set>
+		WHERE
+		org_id = #{org_id}
+
+	</update>
+
+	<delete id="deleteByKey">
+		delete FROM  koaka_org
+		WHERE
+		org_id = #{org_id}
+
+	</delete>
+	
+	<!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 -->
+	<select id="findByWhereForList" parameterType="string" resultMap="OrgDomain">
+	    SELECT
+			sysorg.org_id,
+			sysorg.orgname
+	    FROM 	
+	    	koaka_org sysorg
+		<where>
+			<if test=" org_id != null and org_id != ''.toString()" >
+				AND sysorg.org_id = #{org_id}
+			</if>
+			<!--<if test=" name != null and name != ''.toString()" >-->
+				<!--AND sysorg.orgname like CONCAT(CONCAT('%',#{name}),'%')-->
+			<!--</if>-->
+			<if test=" name != null and name != ''.toString()" >
+				AND sysorg.orgname= #{name}
+			</if>
+
+		</where>
+	    ORDER BY 
+	    	sysorg.org_id
+	</select>
+	
+</mapper>
